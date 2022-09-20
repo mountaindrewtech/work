@@ -2,35 +2,34 @@
 
 @echo off
 REM Setting window to minimized.
-	if not "%minimized%"=="" goto :start
+	if not "%minimized%"=="" goto start
 	set minimized=true
 	start /min cmd /C "%~dpnx0"
-	
-REM Checking network drive error status, if errored goto "unmap", if not goto "map".
+	goto EOF
+REM Checking network drive error status, if there's errors, goto remap.
 	:start
 	cls
 	color A
 	net use
-	if %errorlevel% equ 0 goto unmap
-	if not %errorlevel% equ 0 goto map
+	if not %errorlevel% equ 0 goto remap
+:: goto "End Of File" - end script
+	goto EOF
 	
-REM Unmap network drives.
-	:unmap
-	net use p: /delete /y
-	net use s: /delete /y
-	
-REM Map network drives.
-	:map
-	net use p:
-	net use s:
-	
-REM Verify network drive error status, if errored goto "contact", or "end of file" - end script.
+REM Remap network drives.
+	:remap
+	net use x: /delete /y
+	net use y: /delete /y
+	net use x: \\filepath
+	net use y: \\filepath
+
+REM Verify network drive error status, if errored, goto "contact".
 	net use
-	if %errorlevel% equ 0 goto contact
-	goto :EOF
+	if not %errorlevel% equ 0 goto contact
+:: goto "End Of File" - end script
+	goto EOF
 	
 	:contact
 	color C
 	echo Please contact IT.
-	Timeout 15
+	Timeout 60
 exit
