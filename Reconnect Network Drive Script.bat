@@ -10,7 +10,11 @@ REM Checking network drive error status, if there's errors, goto remap.
 	:start
 	cls
 	color A
-	net use
+	net use x: \\filepath
+	net use y: \\filepath
+	net use x:
+	if not %errorlevel% equ 0 goto remap
+	net use y:
 	if not %errorlevel% equ 0 goto remap
 :: goto "End Of File" - end script
 	goto EOF
