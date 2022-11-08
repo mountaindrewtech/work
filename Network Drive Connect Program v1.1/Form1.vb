@@ -1,4 +1,4 @@
-﻿'Title: EnterpriseData Reconnect Program
+'Title: EnterpriseData Reconnect Program
 'Version: 1.1.0
 'Author: Drew Schmidt
 'Date: 11/01/2022
@@ -11,12 +11,15 @@ Public Class Form1
     Private Sub btnConnect_Click(sender As Object, e As EventArgs) Handles btnConnect.Click
 
         ' If textbox is empty do not continue
-        If (txtPassword.Text = "") Then
+        If (txtPassword.TextLength = 0) Then
             MessageBox.Show("Please enter a password!")
+        ElseIf (txtPassword.TextLength > 30) Then
+            MessageBox.Show("Please enter a valid password!")
+            txtPassword.Text = String.Empty
         Else
             ' Start CMD as a process and run the reconnect command, enable standard error output
             Dim cmdConnect As New Process()
-            Dim cntInfo As New ProcessStartInfo("cmd.exe", "/c net use z: /delete /y & cls & net use z: \\networkpath /user:C2050\%username% " + txtPassword.Text + " /p:yes")
+            Dim cntInfo As New ProcessStartInfo("cmd.exe", "/c net use z: /delete /y & cls & net use z: \\networkpath /user:domain\%username% " + txtPassword.Text + " /p:yes")
             cntInfo.UseShellExecute = False
             cntInfo.CreateNoWindow = True
             cntInfo.RedirectStandardError = True
@@ -43,7 +46,6 @@ Public Class Form1
                 cmdOpen.Start()
                 Close()
             End If
-
         End If
 
     End Sub
