@@ -1,0 +1,5 @@
+C:\Users\dschmidt\Desktop\EnterpriseData.exe
+C:\Users\dschmidt\Desktop\EnterpriseData.dll
+C:\Users\dschmidt\Desktop\EnterpriseData.deps.json
+C:\Users\dschmidt\Desktop\EnterpriseData.runtimeconfig.json
+C:\Users\dschmidt\Desktop\EnterpriseData.pdb
