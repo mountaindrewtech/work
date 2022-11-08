@@ -18,8 +18,15 @@ Public Class Form1
             txtPassword.Text = String.Empty
         Else
             ' Start CMD as a process and run the reconnect command, enable standard error output
+            Dim cmdClose As New Process()
+            Dim clsInfo As New ProcessStartInfo("cmd.exe", "/c net use z: /delete /y")
+            clsInfo.UseShellExecute = False
+            clsInfo.CreateNoWindow = True
+            cmdClose.StartInfo = clsInfo
+            cmdClose.Start()
+
             Dim cmdConnect As New Process()
-            Dim cntInfo As New ProcessStartInfo("cmd.exe", "/c net use z: /delete /y & cls & net use z: \\networkpath /user:domain\%username% " + txtPassword.Text + " /p:yes")
+            Dim cntInfo As New ProcessStartInfo("cmd.exe", "/c cls & net use z: \\networkpath /user:domain\%username% " + txtPassword.Text + " /p:yes")
             cntInfo.UseShellExecute = False
             cntInfo.CreateNoWindow = True
             cntInfo.RedirectStandardError = True
@@ -32,12 +39,14 @@ Public Class Form1
                 cmdOutput = cmdStreamReader.ReadToEnd()
             End Using
 
-            ' Tell the user if the password is incorrect and clear the text box, otherwise open Z: and close
-            If cmdOutput.Contains("The specified network password is not correct.") Then
+            ' Tell the user if the password is incorrect and clear the text box, connect and open, or let the user know they can't reach it.
+            If cmdOutput.Contains("The network name cannot be found.") Then
+                MessageBox.Show("Cannot reach EnterpriseData, please check your network connection/VPN!")
+                txtPassword.Text = String.Empty
+            ElseIf cmdOutput.Contains("The specified network password is not correct.") Then
                 MessageBox.Show("Incorrect password!")
                 txtPassword.Text = String.Empty
             Else
-                '' Process.Start("cmd.exe", "/c start Z:")
                 Dim cmdOpen As New Process()
                 Dim opnInfo As New ProcessStartInfo("cmd.exe", "/c start Z:")
                 opnInfo.UseShellExecute = False
