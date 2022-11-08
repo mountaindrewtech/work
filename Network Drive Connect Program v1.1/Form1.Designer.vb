@@ -1,4 +1,4 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
@@ -85,8 +85,11 @@ Partial Class Form1
         Me.Controls.Add(Me.lblPassword)
         Me.Controls.Add(Me.btnConnect)
         Me.Controls.Add(Me.btnClose)
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.MaximizeBox = False
         Me.Name = "Form1"
+        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "WDP PDI EnterpriseData"
         Me.ResumeLayout(False)
         Me.PerformLayout()
