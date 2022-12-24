@@ -1,0 +1,51 @@
+<!--Title: ticketmaps-->
+<!--Author: Drew Schmidt-->
+<!--Date: 12/23/22-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ticketmaps</title>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      function initMap() {
+        // create a new Google Maps map centered on the SW Michigan
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 42.83535186428044, lng: -84.75676163496502},
+          zoom: 9
+        });
+
+        // make a GET request to the Zendesk API to get all tickets
+        fetch('https://YOUR_SUBDOMAIN.zendesk.com/api/v2/tickets.json', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + your_access_token
+            }
+        })
+          .then(response => response.json())
+          .then(data => {
+            // loop through the tickets and find any with a status of "Scheduled"
+            data.tickets.forEach(ticket => {
+              if (ticket.status === 'Onsite Scheduled') {
+                // if the ticket is scheduled, get the requester's location and name
+                var location = ticket.requester.location;
+                // if the requester has a location, create a marker on the map at that location
+                if (location) {
+                  var marker = new google.maps.Marker({
+                    position: {lat: location.latitude, lng: location.longitude},
+                    map: map,
+                    title: ticket.requester.name + "|" + ticket.subject
+                  });
+                }
+              }
+            });
+          });
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap"
+    async defer></script>
+  </body>
+</html>
