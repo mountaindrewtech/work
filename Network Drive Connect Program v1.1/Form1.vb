@@ -26,7 +26,7 @@ Public Class Form1
             cmdClose.Start()
 
             Dim cmdConnect As New Process()
-            Dim cntInfo As New ProcessStartInfo("cmd.exe", "/c cls & net use z: \\networkpath /user:domain\%username% " + txtPassword.Text + " /p:yes")
+            Dim cntInfo As New ProcessStartInfo("cmd.exe", "/c cls & net use z: \\networkpath /user:domain\%username% " + txtPassword.Text + " /savecred /p:yes")
             cntInfo.UseShellExecute = False
             cntInfo.CreateNoWindow = True
             cntInfo.RedirectStandardError = True
