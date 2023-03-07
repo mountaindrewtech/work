@@ -1,7 +1,7 @@
 'Title: EnterpriseData Reconnect Program
-'Version: 1.1.0
+'Version: 1.3
 'Author: Drew Schmidt
-'Date: 11/01/2022
+'Date: 03/06/2023
 
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel
 
