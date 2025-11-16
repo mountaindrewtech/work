@@ -1,5 +1,0 @@
-C:\Users\dschmidt\Desktop\EnterpriseData1.exe
-C:\Users\dschmidt\Desktop\EnterpriseData1.dll
-C:\Users\dschmidt\Desktop\EnterpriseData1.deps.json
-C:\Users\dschmidt\Desktop\EnterpriseData1.runtimeconfig.json
-C:\Users\dschmidt\Desktop\EnterpriseData1.pdb
